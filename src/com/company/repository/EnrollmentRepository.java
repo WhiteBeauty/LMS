@@ -22,8 +22,8 @@ public class EnrollmentRepository {
 
             while (results.next()) {
                 int id = Integer.parseInt(results.getString("id"));
-                int studentId = Integer.parseInt(results.getString("studentId"));
-                int courseId = Integer.parseInt(results.getString("courseId"));
+                int studentId = Integer.parseInt(results.getString("student_id"));
+                int courseId = Integer.parseInt(results.getString("course_id"));
                 new Enrollment(id, studentId, courseId);
             }
             conn.close();
@@ -39,7 +39,7 @@ public class EnrollmentRepository {
             Connection conn = DriverManager.getConnection(url, user, password);
 
             // запустим соединение
-            PreparedStatement statement = conn.prepareStatement("insert into enrollment (id, studentId, courseId) values(?, ?, ?)");
+            PreparedStatement statement = conn.prepareStatement("insert into enrollment (id, student_id, course_id) values(?, ?, ?)");
             statement.setInt(1, id);
             statement.setInt(2, studentId);
             statement.setInt(3, courseId);
@@ -57,7 +57,7 @@ public class EnrollmentRepository {
             Connection conn = DriverManager.getConnection(url, user, password);
 
             // запустим соединение
-            conn.createStatement().executeQuery("delete from enrollment where (id =" + id + ")");
+            conn.createStatement().executeUpdate("delete from enrollment where (id =" + id + ")");
             conn.close();
         } catch (Exception e) {
             System.out.println("Не удалось удалить запись");

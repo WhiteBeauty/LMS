@@ -1,14 +1,14 @@
 package com.company.view.student;
 
 
-import com.company.modal.Course;
+
 import com.company.modal.Student;
 import com.company.view.course.GetCoursesFrame;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
+
 
 public class StudentPopupMenu extends JPopupMenu {
     public static MenuActionListener menuActionListener = new MenuActionListener();
@@ -40,8 +40,6 @@ public class StudentPopupMenu extends JPopupMenu {
                 case "save" -> Student.update(id, name, surname);
                 case "delete" -> Student.delete(id, rowIndex);
                 case "courses" -> {
-                    ArrayList<Course> courses = Student.getCoursesById(id);
-                    System.out.println(courses);
                     new GetCoursesFrame(Student.getStudentById(id), false);
                 }
                 case "enroll" -> new GetCoursesFrame(Student.getStudentById(id), true);

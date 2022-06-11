@@ -3,6 +3,8 @@ package com.company.modal;
 
 
 
+    import com.company.repository.EnrollmentRepository;
+
     import java.util.ArrayList;
 
     public class Enrollment {
@@ -11,13 +13,14 @@ package com.company.modal;
         Course course;
 
         static int lastID;
-        static ArrayList<Enrollment> allCE = new ArrayList<>();
+        public static ArrayList<Enrollment> allCE = new ArrayList<>();
 
         public Enrollment(Student student, Course course) {
             this.id = ++lastID;
             this.student = student;
             this.course = course;
             allCE.add(this);
+            EnrollmentRepository.add(id, student.getId(), course.getId());
         }
 
         public Enrollment(int id, int studentId, int courseId) {
@@ -81,5 +84,16 @@ package com.company.modal;
 
         public int getId() {
             return id;
+        }
+        public static Enrollment getEnrollment(Student st, Course c) {
+            for (Enrollment ce: allCE) {
+                if (ce.student.getId() == st.getId() && ce.course.getId() == c.getId()) {
+                    return ce;
+                }
+            }
+            return new Enrollment(st, c);
+        }
+        public static void remove(int id) {
+            allCE.removeIf(ce -> ce.id == id);
         }
     }

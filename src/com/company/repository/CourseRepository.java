@@ -53,7 +53,7 @@ public class CourseRepository {
             Connection conn = DriverManager.getConnection(url, user, password);
 
             // запустим соединение
-            conn.createStatement().executeQuery("delete from course where (id =" + id + ")");
+            conn.createStatement().executeUpdate("delete from course where (id =" + id + ")");
             conn.close();
         } catch (Exception e){
             System.out.println("Не удалось удалить курс");
