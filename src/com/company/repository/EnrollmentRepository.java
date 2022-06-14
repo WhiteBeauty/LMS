@@ -71,14 +71,14 @@ public class EnrollmentRepository {
             Connection conn = DriverManager.getConnection(url, user, password);
 
             // запустим соединение
-            PreparedStatement statement = conn.prepareStatement("update enrollment " + "set studentId=?, courseId=?" + "where id=?");
+            PreparedStatement statement = conn.prepareStatement("update enrollment " + "set student_id=?, course_id=?" + "where id=?");
             statement.setInt(1, studentId);
             statement.setInt(2, courseId);
             statement.setInt(3, id);
             statement.executeUpdate();
             conn.close();
         } catch (Exception e) {
-            System.out.println("Не удалось изменить студента");
+            System.out.println("Не удалось изменить запись");
             System.out.println(e.getMessage());
         }
     }

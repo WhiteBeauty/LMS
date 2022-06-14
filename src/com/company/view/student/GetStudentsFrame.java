@@ -22,8 +22,8 @@ public class GetStudentsFrame extends JFrame {
         setSize(500, 500);
         setLocation(1920 / 2 - 250, 1080 / 2 - 250);
         setLayout(new FlowLayout());
-        BoxLayout layout = new BoxLayout(panel, BoxLayout.Y_AXIS);
-        panel.setLayout(layout);
+        panel = new GetStudentsPanel(course, toEnroll);
+        add(panel);
         add(panel);
         JButton button = new JButton();
 

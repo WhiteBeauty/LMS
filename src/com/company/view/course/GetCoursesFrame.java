@@ -24,7 +24,7 @@ public GetCoursesPanel panel;
      setLayout(new FlowLayout());
         setLayout(new FlowLayout());
         panel = new GetCoursesPanel(student, toEnroll);
-     add(panel);
+        add(panel);
         JButton button = new JButton();
 
         if (toEnroll) {
