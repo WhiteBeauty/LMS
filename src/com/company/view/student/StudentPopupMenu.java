@@ -2,6 +2,7 @@ package com.company.view.student;
 
 
 
+import com.company.modal.Enrollment;
 import com.company.modal.Student;
 import com.company.view.course.GetCoursesFrame;
 
@@ -38,10 +39,11 @@ public class StudentPopupMenu extends JPopupMenu {
             String surname = StudentListPanel.table.getValueAt(rowIndex, 2).toString();
             switch (e.getActionCommand()) {
                 case "save" -> Student.update(id, name, surname);
-                case "delete" -> Student.delete(id, rowIndex);
-                case "courses" -> {
-                    new GetCoursesFrame(Student.getStudentById(id), false);
+                case "delete" -> {
+                    Student.delete(id, rowIndex);
+                    Enrollment.removeByStudentId(id);
                 }
+                case "courses" -> new GetCoursesFrame(Student.getStudentById(id), false);
                 case "enroll" -> new GetCoursesFrame(Student.getStudentById(id), true);
                 default -> System.out.println("Неизвестная команда");
             }

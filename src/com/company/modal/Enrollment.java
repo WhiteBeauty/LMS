@@ -6,8 +6,9 @@ package com.company.modal;
     import com.company.repository.EnrollmentRepository;
 
     import java.util.ArrayList;
+    import java.util.HashSet;
 
-    public class Enrollment {
+public class Enrollment {
         int id;
         Student student;
         Course course;
@@ -96,4 +97,24 @@ package com.company.modal;
         public static void remove(int id) {
             allCE.removeIf(ce -> ce.id == id);
         }
+        public static void removeByStudentId(int id) {
+            HashSet<Enrollment> toRemove =  new HashSet<>();
+            for (Enrollment ce : allCE) {
+                if (id == ce.student.getId()) {
+                    toRemove.add(ce);
+                    EnrollmentRepository.delete(ce.getId());
+                }
+            }
+            allCE.removeAll(toRemove);
+        }
+    public static void removeByCourseId(int id) {
+        HashSet<Enrollment> toRemove = new HashSet<>();
+        for (Enrollment ce : allCE) {
+            if (id == ce.course.getId()) {
+                toRemove.add(ce);
+                EnrollmentRepository.delete(ce.getId());
+            }
+        }
+        allCE.removeAll(toRemove);
+    }
     }

@@ -8,6 +8,7 @@ import com.company.repository.EnrollmentRepository;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.Objects;
 
 
 public class GetCoursesFrame extends JFrame {
@@ -33,7 +34,7 @@ public GetCoursesPanel panel;
                 int rowIndex = panel.table.getSelectedRow();
                 int id = Integer.parseInt(panel.table.getValueAt(rowIndex, 0).toString());
                 panel.model.removeRow(rowIndex);
-                new Enrollment(student, Course.getCourseById(id));
+                new Enrollment(student, Objects.requireNonNull(Course.getCourseById(id)));
             });
         } else {
             button.setText("Отчислить");
