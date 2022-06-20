@@ -3,7 +3,7 @@ package com.company.modal;
 
 
 
-    import com.company.repository.EnrollmentRepository;
+    import com.company.repository.Repository;
 
     import java.util.ArrayList;
     import java.util.HashSet;
@@ -21,7 +21,7 @@ public class Enrollment {
             this.student = student;
             this.course = course;
             allCE.add(this);
-            EnrollmentRepository.add(id, student.getId(), course.getId());
+            Repository.addEnrollment(id, "" + student.getId(), "" + course.getId());
         }
 
         public Enrollment(int id, int studentId, int courseId) {
@@ -102,7 +102,7 @@ public class Enrollment {
             for (Enrollment ce : allCE) {
                 if (id == ce.student.getId()) {
                     toRemove.add(ce);
-                    EnrollmentRepository.delete(ce.getId());
+                    Repository.deleteEnrollment(ce.getId());
                 }
             }
             allCE.removeAll(toRemove);
@@ -112,7 +112,7 @@ public class Enrollment {
         for (Enrollment ce : allCE) {
             if (id == ce.course.getId()) {
                 toRemove.add(ce);
-                EnrollmentRepository.delete(ce.getId());
+                Repository.deleteEnrollment(ce.getId());
             }
         }
         allCE.removeAll(toRemove);

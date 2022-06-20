@@ -4,7 +4,7 @@ package com.company.view.course;
 import com.company.modal.Course;
 import com.company.modal.Enrollment;
 import com.company.modal.Student;
-import com.company.repository.EnrollmentRepository;
+
 
 import javax.swing.*;
 import java.awt.*;
@@ -22,12 +22,14 @@ public GetCoursesPanel panel;
         getContentPane().setBackground(Color.cyan);
      setSize(500, 500);
      setLocation(1920 / 2 - 250, 1080 / 2 - 250);
-     setLayout(new FlowLayout());
+
         setLayout(new FlowLayout());
         panel = new GetCoursesPanel(student, toEnroll);
+        BoxLayout layout = new BoxLayout(panel, BoxLayout.Y_AXIS);
+        panel.setLayout(layout);
+
         add(panel);
         JButton button = new JButton();
-
         if (toEnroll) {
             button.setText("Записать");
             button.addActionListener(e -> {
@@ -43,13 +45,13 @@ public GetCoursesPanel panel;
                 int courseId = Integer.parseInt(panel.table.getValueAt(rowIndex, 0).toString());
                 panel.model.removeRow(rowIndex);
                 Enrollment enrollment = Enrollment.getEnrollment(student, Course.getCourseById(courseId));
-                EnrollmentRepository.delete(enrollment.getId());
                 Enrollment.remove(enrollment.getId());
             });
         }
         panel.add(button);
         pack();
         setVisible(true);
+
 
     }
 }

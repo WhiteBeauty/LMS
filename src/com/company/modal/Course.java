@@ -1,7 +1,8 @@
 package com.company.modal;
 
 
-    import com.company.repository.CourseRepository;
+
+    import com.company.repository.Repository;
 
 
     import javax.swing.table.DefaultTableModel;
@@ -18,7 +19,7 @@ package com.company.modal;
         public static ArrayList<Course> allCourses = new ArrayList<>();
         public Course(String title, String description) {
             setProperties(++lastId, title, description);
-            CourseRepository.add(id, title, description);
+            Repository.addCourse(id, title, description);
         }
 
         public Course(int id, String title, String description) {
@@ -27,11 +28,11 @@ package com.company.modal;
         }
 
         public static void update(int id, String title, String description) {
-            CourseRepository.update(id, title, description);
+            Repository.updateCourse(id, title, description);
         }
 
         public static void delete(int id, int rowIndex) {
-            CourseRepository.delete(id);
+            Repository.deleteCourse(id);
             model.removeRow(rowIndex);
         }
 
