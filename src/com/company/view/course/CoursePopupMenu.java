@@ -15,6 +15,7 @@ public class CoursePopupMenu extends JPopupMenu {
     public static MenuActionListener menuActionListener = new MenuActionListener();
     public CoursePopupMenu(){
         add(item("Сохранить", "save"));
+        addSeparator();
         add(item("Студенты курса", "students"));
         add(item("Записать студента", "enroll"));
         addSeparator();

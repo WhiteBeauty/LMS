@@ -10,7 +10,7 @@ public class StudentListPanel extends JPanel {
     public static JTable table = new JTable();
 
     public StudentListPanel() {
-        Student.model.setColumnIdentifiers(new String[] { "ID", "Name", "Surname"});
+        Student.model.setColumnIdentifiers(new String[] { "ID", "Имя", "Фамилия", "Почта", "Телефон"});
         table.setModel(Student.model);
         add(new JScrollPane(table));
 

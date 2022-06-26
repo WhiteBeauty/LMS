@@ -21,7 +21,7 @@ public class Enrollment {
             this.student = student;
             this.course = course;
             allCE.add(this);
-            Repository.addEnrollment(id, "" + student.getId(), "" + course.getId());
+            Repository.addEnrollment(id + "", "" + student.getId(), "" + course.getId());
         }
 
         public Enrollment(int id, int studentId, int courseId) {

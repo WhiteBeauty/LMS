@@ -14,6 +14,7 @@ public class AddCoursePanel extends JPanel {
         // Поля для ввода
         JTextField title = new JTextField(10);
         JTextField description = new JTextField(10);
+        JTextField teacher = new JTextField(10);
         // Компонент для отображения текста
 
         // Кнопка
@@ -21,9 +22,10 @@ public class AddCoursePanel extends JPanel {
         // Если нажата кнопка:
         addButton2.addActionListener(e -> {
             if (!title.getText().isEmpty()) {
-                new Course(title.getText(), description.getText());
+                new Course(title.getText(), description.getText(), teacher.getText());
                 title.setText("");
                 description.setText("");
+                teacher.setText("");
                 Main.addStudentFrame.setVisible(false);
 
             }
@@ -31,7 +33,7 @@ public class AddCoursePanel extends JPanel {
         });
 
 
-
+        add(teacher);
         add(title);
         add(description);
         add(addButton2);

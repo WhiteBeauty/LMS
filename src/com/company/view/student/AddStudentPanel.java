@@ -12,6 +12,8 @@ public class AddStudentPanel extends JPanel{
         // Поля для ввода
         JTextField nameTF = new JTextField(10);
         JTextField surnameTF = new JTextField(10);
+        JTextField emailTF = new JTextField(21);
+        JTextField phoneTF = new JTextField(10);
         // Компонент для отображения текста
         setBackground(Color.DARK_GRAY);
         // Кнопка
@@ -19,9 +21,11 @@ public class AddStudentPanel extends JPanel{
         // Если нажата кнопка:
         addButton.addActionListener(e -> {
             if (!nameTF.getText().isEmpty() && !surnameTF.getText().isEmpty()) {
-                new Student(nameTF.getText(), surnameTF.getText());
+                new Student(nameTF.getText(), surnameTF.getText(), emailTF.getText(), phoneTF.getText());
                 nameTF.setText("");
                 surnameTF.setText("");
+                emailTF.setText("");
+                phoneTF.setText("");
                 Main.addCourseFrame.setVisible(false);
 
             }
@@ -30,7 +34,8 @@ public class AddStudentPanel extends JPanel{
 
         add(nameTF);
         add(surnameTF);
+        add(emailTF);
+        add(phoneTF);
         add(addButton);
-
     }
 }

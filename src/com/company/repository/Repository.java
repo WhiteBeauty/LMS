@@ -14,8 +14,8 @@ public class Repository {
     private static final HashMap<String, String[]> tables = new HashMap<>() {
         {
             put("enrollment", new String[]{"id", "student_id", "course_id"});
-            put("student", new String[]{"id", "name", "surname"});
-            put("course", new String[]{"id", "title", "description"});
+            put("student", new String[]{"id", "name", "surname", "email", "phone"});
+            put("course", new String[]{"id", "title", "description", "teacher"});
         }
     };
 
@@ -44,15 +44,19 @@ public class Repository {
         // запустим соединение
         Statement statement = conn.createStatement();
         ResultSet results = statement.executeQuery("select * from " + tableName + " order by id");
-
+        String[] fields = tables.get(tableName);
         while (results.next()) {
-            int id = Integer.parseInt(results.getString(1));
-            String col2 = results.getString(2);
-            String col3 = results.getString(3);
+            String[] values = new String[fields.length];
+            for (int i = 0; i < fields.length; i++) {
+                values[i] = results.getString(i + 1);
+            }
+
             switch (tableName) {
-                case "enrollment" -> new Enrollment(id, Integer.parseInt(col2), Integer.parseInt(col3));
-                case "course" -> new Course(id, col2, col3);
-                case "student" -> new Student(id, col2, col3);
+                case "enrollment" -> new Enrollment(Integer.parseInt(values[0]),
+                        Integer.parseInt(values[1]),
+                        Integer.parseInt(values[2]));
+                case "course" -> new Course(Integer.parseInt(values[0]), values[1], values[2], values[3]);
+                case "student" -> new Student(Integer.parseInt(values[0]), values[1], values[2], values[3], values[4]);
             }
         }
     }
@@ -83,28 +87,31 @@ public class Repository {
     }
 
 
-    public static void addCourse(int id, String title, String description) {
-        add("course", id, title, description);
+    public static void addCourse(String id, String title, String description, String teacher) {
+        add("course", new String[]{id, toStr(title), toStr(description), toStr(teacher)});
     }
 
-    public static void addStudent(int id, String name, String surname) {
-        add("student", id, name, surname);
+    public static void addStudent(String id, String name, String surname, String email, String phone) {
+        add("student", new String[]{id, toStr(name), toStr(surname), toStr(email), toStr(phone)});
     }
 
-    public static void addEnrollment(int id, String student_id, String course_id) {
-        add("enrollment", id, student_id, course_id);
+    public static void addEnrollment(String id, String student_id, String course_id) {
+        add("enrollment", new String[]{id, toStr(student_id), toStr(course_id)});
     }
 
-    public static void add(String tableName, int id, String col2, String col3) {
+    public static String toStr(String val) {
+        return "'" + val + "'";
+    }
+
+    public static void add(String tableName, String[] values) {
         try {
             // создаём соединение
             Connection conn = DriverManager.getConnection(Repository.url, Repository.user, Repository.password);
-
             // запустим соединение
             PreparedStatement statement =
                     conn.prepareStatement(
                             "insert into " + tableName + " values " +
-                                    "(" + id + ", " + col2 + ", " + col3 + ")");
+                                    "(" + String.join(", ", values) + ")");
             statement.executeUpdate();
             conn.close();
         } catch (Exception e) {
@@ -119,7 +126,7 @@ public class Repository {
     }
 
     public static void updateStudent(int id, String name, String surname) {
-        update("course", id, name, surname);
+        update("student", id, name, surname);
 
     }
 
@@ -148,4 +155,5 @@ public class Repository {
 
 
 }
+
 

@@ -10,8 +10,7 @@ public class GetStudentsPanel extends JPanel {
     public JTable table = new JTable();
     public DefaultTableModel model = new DefaultTableModel();
     public GetStudentsPanel(Course course, boolean toEnroll) {
-        model.setColumnIdentifiers(new String[] { "ID", "Name", "Surname"});
-
+        model.setColumnIdentifiers(new String[] {"ID", "Name", "Surname"});
         for (Student student: course.getStudents(toEnroll)){
             model.addRow(new Object[]{student.getId(), student.getName(), student.getSurname()});
         }
