@@ -48,8 +48,8 @@ public class Course {
         model.addRow(new Object[]{this.id, title, description, teacher});
     }
 
-    public static void update(int id, String title, String description) {
-        Repository.updateCourse(id, title, description);
+    public static void update(int id, String title, String description, String teacher) {
+        Repository.updateCourse(id + "", title, description, teacher);
     }
 
     public static void delete(int id, int rowIndex) {

@@ -120,18 +120,18 @@ public class Repository {
         }
     }
 
-    public static void updateCourse(int id, String title, String description) {
-        update("course", id, title, description);
+    public static void updateCourse(String id, String title, String description, String teacher) {
+        update("course", new String[]{id, toStr(title), toStr(description), toStr(teacher)});
 
     }
 
-    public static void updateStudent(int id, String name, String surname) {
-        update("student", id, name, surname);
+    public static void updateStudent(String id, String name, String surname, String email, String phone) {
+        update("student", new String[]{id, toStr(name), toStr(surname), toStr(email), toStr(phone)});
 
     }
 
 
-    public static void update(String tableName, int id, String col2, String col3) {
+    public static void update(String tableName, String[] values) {
         try {
             // создаём соединение
             Connection conn = DriverManager.getConnection(url, user, password);
@@ -141,10 +141,8 @@ public class Repository {
 
             PreparedStatement statement =
                     conn.prepareStatement("update " + tableName +
-                            " set " +
-                            columns[1] + " = " + col2 +
-                            columns[2] + " = " + col3 +
-                            "where id = " + id);
+                            " set " + String.join("= ", values) +
+                            "where values = " + values);
             statement.executeUpdate();
             conn.close();
         } catch (Exception e) {

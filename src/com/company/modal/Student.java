@@ -29,8 +29,8 @@ public class Student {
         setProperties(id, name, surname,  email, phone);
     }
 
-    public static void update(int id, String name, String surname) {
-        Repository.updateStudent(id, name, surname);
+    public static void update(int id, String name, String surname, String email, String phone) {
+        Repository.updateStudent(id + "", name, surname, email, phone);
     }
 
     public static void delete(int id, int rowIndex) {

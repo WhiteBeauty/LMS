@@ -38,16 +38,15 @@ public class CoursePopupMenu extends JPopupMenu {
             int id = Integer.parseInt(CourseListPanel.table.getValueAt(rowIndex, 0).toString());
             String title = CourseListPanel.table.getValueAt(rowIndex, 1).toString();
             String description = CourseListPanel.table.getValueAt(rowIndex, 2).toString();
+            String teacher= CourseListPanel.table.getValueAt(rowIndex, 3).toString();
             switch (e.getActionCommand()) {
-                case "save" -> Course.update(id, title, description);
+                case "save" -> Course.update(id, title, description, teacher);
                 case "delete" -> {
                     Course.delete(id, rowIndex);
                     Enrollment.removeByCourseId(id);
                 }
                 case "enroll" -> new GetStudentsFrame(Course.getCourseById(id), true);
-                case "students" -> {
-                    new GetStudentsFrame(Course.getCourseById(id), false);
-                }
+                case "students" -> new GetStudentsFrame(Course.getCourseById(id), false);
                 default -> System.out.println("Неизвестная команда");
             }
 
